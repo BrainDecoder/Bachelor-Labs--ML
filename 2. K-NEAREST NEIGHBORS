@@ -46,5 +46,6 @@ Adding test cases and re-running the training with k = 3:
 1 3
 Results show that 1 case was classified as category 1 and 3 cases were classified as category 2. 
 
+
 References: 
 Skand, K., (2017), kNN(k-Nearest Neighbour) Algorithm in R, Retrieved from: https://rstudio-pubs-static.s3.amazonaws.com/316172_a857ca788d1441f8be1bcd1e31f0e875.html
