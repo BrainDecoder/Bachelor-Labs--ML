@@ -3,7 +3,6 @@ EXERCISES: Multiple Linear Regression Exercises
 a) Calculate the parameter estimates (β0, β1, β2 and σ2), in addition find the usual 95% confidence intervals for β0, β1, and β2
 
 Introducing the data:
-
 > D <- data.frame(
 +     x1=c(0.58, 0.86, 0.29, 0.20, 0.56, 0.28, 0.08, 0.41, 0.22, 0.35,
 +          0.59, 0.22, 0.26, 0.12, 0.65, 0.70, 0.30, 0.70, 0.39, 0.72,
@@ -17,7 +16,6 @@ Introducing the data:
 + )
 
 Calculating the parameter estimates (β0, β1, β2 and σ2):
-
 > lm.fit = lm(D$y∼D$x1+D$x2)
 > summary(lm.fit)
 Call:
@@ -38,7 +36,6 @@ F-statistic:   172 on 2 and 22 DF,  p-value: 3.699e-14
 β0 = 0.433547, β1 = 1.652993, β2 = 0.003945, σ2 (Risidual standard error) = 0.1127
 
 The 95% confidence intervals for β0, β1, and β2 are as follows:
-
 > confint(lm.fit)
                  2.5 %    97.5 %
 (Intercept)  0.2967067   0.5703875
@@ -49,7 +46,6 @@ D$x2        -0.1512924   0.1591822
 b) Still using confidence level α = 0.05 reduce the model if appropriate.
 
 Model reducing means simplifying the model by eliminating insignificant terms, namely those that have a high p-value. In our regression model, the x2 predictor has a 0.958 p-value and after eliminating it the confidence intervals and the p-value are still significant for the current study. 
-
 > lm.fit = lm(D$y∼D$x1)
 > summary(lm.fit)
 Call:
@@ -82,30 +78,28 @@ RSE, or the Residual Standard Error, is the average amount that the response wil
 d) Make a plot of the fitted line and 95% confidence and prediction intervals of the line for x1 ϵ [0, 1] (it is assumed that the model was reduced above).
 
 Drawing the plot:
-
 > plot(D$y∼D$x1, ylim(c(0, 2.2)))
+
 Drawing the regression line, in this case, it's black:
-
 > abline (lm.fit)
+
 Drawing the lower bound of the 95% confidence interval taken from the results of confint(lm.fit), red in this case:
-
 > abline (0.3450849, 1.4710842, col ="red ")
+
 Drawing the upper bound of the 95% confidence interval taken from the results of confint(lm.fit), also as a red line:
-
 > abline (0.5270978, 1.8313341, col ="red ")
-Calculating the prediction intervals of the line for x1 ϵ [0, 1]:
 
+Calculating the prediction intervals of the line for x1 ϵ [0, 1]:
 > predict (lm.fit, data.frame(x1=c(0,1)), interval ="predict")
         fit       lwr       upr
 1 0.4360914 0.1905412 0.6816415
 2 2.0873005 1.8335882 2.3410129
+
 Drawing the fit line for x1 = 0:
-
 > abline (0.4360914, 0, col ="green")
-Drawing the fit line for x1 = 1:
 
+Drawing the fit line for x1 = 1:
 > abline (2.0873005, 0, col ="green")
-This is how the plot looks like after the above operations:
 
 
 
@@ -114,7 +108,6 @@ EXERCISES: MLR simulation
 a) Plot the observed values of y as a function of x1 and x2. Does it seem reasonable that either x1 or x2 can describe the variation in y?
 
 Entering the values into R:
-
 > D <- data.frame(
 +     y=c(9.29,12.67,12.42,0.38,20.77,9.52,2.38,7.46),
 +     x1=c(1.00,2.00,3.00,4.00,5.00,6.00,7.00,8.00),
@@ -123,18 +116,16 @@ Entering the values into R:
 > y = D$y
 > x1 = D$x1
 > x2 = D$x2
-Plotting x1:
 
+Plotting x1:
 > plot(y∼x1)
 > abline(lm(y~x1))
 
 Plotting x2:
-
 > plot(y∼x2)
 > abline(lm(y~x2))
 
 From the 2 graphs above it's clearly seen that the 2 involved predictors have different slopes. The same can be found in the Coefficients results in the summary() function: 
-
 > summary(lm(y∼x1+x2))
 Call:
 lm(formula = y ~ x1 + x2)
@@ -178,8 +169,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Residual standard error: 6.672 on 6 degrees of freedom
 Multiple R-squared:  0.05802,	Adjusted R-squared:  -0.09897 
 F-statistic: 0.3696 on 1 and 6 DF,  p-value: 0.5655
-and for x2 the results are:
 
+and for x2 the results are:
 > summary(lm(y∼x2))
 Call:
 lm(formula = y ~ x2)
@@ -193,13 +184,13 @@ x2            0.2865     0.2380   1.204    0.274
 Residual standard error: 6.169 on 6 degrees of freedom
 Multiple R-squared:  0.1946,	Adjusted R-squared:  0.06035 
 F-statistic:  1.45 on 1 and 6 DF,  p-value: 0.2739
+
 In both latter cases, the p-values are high and the R2 values are closer to 0 than 1. This proves that the assumption that "either x1 or x2 can describe the variation in y" is not true. For this study case, x1 and x2 should be analyzed together in order to give trustful insights and/or predictions for the available data set. 
 
 
 b) Estimate the parameters for the two models
 
 As mentioned above, for this data set the model has power only when both x1 and x2 are examined together. Therefore, the parameters are estimated based on the following function:
-
 > summary(lm(y∼x1+x2))
 Call:
 lm(formula = y ~ x1 + x2)
@@ -229,7 +220,6 @@ F-statistic:   208 on 2 and 5 DF,  p-value: 1.536e-05
 β0, in this case, is 8.03253, β1x1 is -3.57336, β1x2 is 0.96716 and σ2 is 0.8205.
 
 The confidence interval can be calculated as follows:
-
 > confint(lm(y∼x1+x2))
                  2.5 %    97.5 %
 (Intercept)  6.3030657  9.762002
