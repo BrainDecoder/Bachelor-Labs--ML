@@ -1,0 +1,79 @@
+Path 1
+
+Adding libraries and data
+> library(rpart) 
+> library(mlbench) 
+> data(Ionosphere)
+> attach(Ionosphere)
+
+Using the rpart() method to create a regression tree for the data
+> tree.ionos = rpart(Class~.,Ionosphere) 
+> plot(tree.ionos)
+> text(tree.ionos, pretty=0)
+
+Splitting the data in a test and train subsets using the sample() method
+> set.seed(21)
+> train = sample(1:nrow(Ionosphere),200)
+> ionos.test = Ionosphere[-train,]
+> Class.test = Class[-train]
+
+Creating a decision tree using the training data and rpart():
+> tree.ionos = rpart(Class~.,Ionosphere,subset=train) 
+
+Using the predict method to find the predicted class labels for the testing data
+> tree.pred = predict(tree.ionos, ionos.test, type = "class")
+
+Using the table method to create a table of the predictions versus true labels
+> table(tree.pred, Class.test)
+         Class.test
+tree.pred bad good
+      bad    31    2
+     good    18    100
+
+Calculating the % of correct answers:
+> (31+100)/151
+[1] 0.8675497
+
+
+Path 2
+
+Adding libraries and data
+> library(rpart) 
+> library(mlbench) 
+> data(Ionosphere)
+> attach(Ionosphere)
+
+Using the tree() method to create a regression tree for the data
+> tree.ionos = tree(Class~., Ionosphere)
+> plot(tree.ionos)
+> text(tree.ionos, pretty=0)
+
+Splitting the data in a test and train subsets using the sample() method
+> set.seed(21)
+> train = sample(1:nrow(Ionosphere),200)
+> ionos.test = Ionosphere[-train,]
+> Class.test = Class[-train]
+
+Creating a decision tree using the training data and tree()
+> tree.ionos = tree(Class~.,Ionosphere, subset=train)
+
+Using the predict method to find the predicted class labels for the testing data
+> tree.pred = predict(tree.ionos, ionos.test, type = "class")
+
+Using the table method to create a table of the predictions versus true labels
+> table(tree.pred, Class.test)
+         Class.test
+tree.pred    bad  good
+      bad    38   5
+     good    11   97
+     
+Calculating the % of correct answers:
+> (38+97)/151
+[1] 0.8940397
+
+Conclusion
+The two Paths show that in this example tree() was more efficient than rpart(), with an 89% accuracy versus 86% accuracy. 
+
+
+References:
+James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An Introduction to Statistical Learning with Applications in R. New York, NY: Springer
